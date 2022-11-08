@@ -42,7 +42,7 @@ class Contacts(models.Model):
 
 class Products(models.Model):
     name = models.TextField(max_length=50, null=False, blank=False, verbose_name='Название продукта')
-    model = models.TextField(max_length=50, null=False, blank=False, verbose_name='Модель')
+    prod_model = models.TextField(max_length=50, null=False, blank=False, verbose_name='Модель')
     release_date = models.DateField(null=False, blank=False)
 
     class Meta:
@@ -50,7 +50,7 @@ class Products(models.Model):
         verbose_name_plural = 'Продукты'
 
     def __str__(self):
-        return f'{self.name} {self.model}'
+        return f'{self.name} {self.prod_model}'
 
 
 class Workers(models.Model):
