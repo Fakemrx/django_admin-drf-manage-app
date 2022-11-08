@@ -37,7 +37,7 @@ class Contacts(models.Model):
         verbose_name_plural = 'Контакты'
 
     def __str__(self):
-        return self.email
+        return f'{self.email} | {self.address}'
 
 
 class Products(models.Model):
@@ -70,11 +70,10 @@ class SellersNetwork(models.Model):
     contacts = models.ForeignKey(Contacts, on_delete=models.CASCADE,
                                  related_name='info_contacts_set', db_index=True, null=False, blank=False,
                                  verbose_name='Контакты')
-    products = models.ManyToManyField(Products, related_name='info_products_set', db_index=True, null=False,
-                                      blank=False, verbose_name='Продукты')
-    workers = models.ManyToManyField(Workers, related_name='info_workers_set', db_index=True, null=False, blank=False,
-                                 verbose_name='Работники')
-    debt = models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Долг')
+    products = models.ManyToManyField(Products, related_name='info_products_set', db_index=True,
+                                      verbose_name='Продукты')
+    workers = models.ManyToManyField(Workers, related_name='info_workers_set', db_index=True, verbose_name='Работники')
+    debt = models.DecimalField(default=0, decimal_places=2, max_digits=10, verbose_name='Долг')
     creation_time = models.DateTimeField(auto_now=True, verbose_name='Дата и время создания')
 
     class Meta:
@@ -82,4 +81,4 @@ class SellersNetwork(models.Model):
         verbose_name_plural = 'Информация'
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
