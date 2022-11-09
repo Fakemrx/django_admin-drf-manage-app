@@ -7,6 +7,10 @@ class Factory(models.Model):
                              related_name='factory_info_set', db_index=True, null=False, blank=False,
                              verbose_name='Завод')
 
+    @property
+    def get_provider(self):
+        return None
+
     class Meta:
         verbose_name = 'Завод'
         verbose_name_plural = 'Заводы'
@@ -22,6 +26,11 @@ class Distributor(models.Model):
     factory_provider = models.ForeignKey(Factory, on_delete=models.deletion.SET_NULL,
                                  related_name='fact_to_dist_set', db_index=True, null=True, blank=True,
                                  verbose_name='Поставщик <Завод>')
+
+    @property
+    def get_provider(self):
+        if self.factory_provider is not None:
+            return self.factory_provider
 
     class Meta:
         verbose_name = 'Дистрибьютор'
@@ -41,6 +50,13 @@ class Dealership(models.Model):
     distributor_provider = models.ForeignKey(Distributor, on_delete=models.deletion.SET_NULL,
                                  related_name='dist_to_deal_set', db_index=True, null=True, blank=True,
                                  verbose_name='Поставщик <Дистрибьютор>')
+
+    @property
+    def get_provider(self):
+        if self.factory_provider is not None:
+            return self.factory_provider
+        elif self.distributor_provider is not None:
+            return self.distributor_provider
 
     class Meta:
         verbose_name = 'Дилерский центр'
@@ -63,6 +79,15 @@ class Retailer(models.Model):
     dealership_provider = models.ForeignKey(Dealership, on_delete=models.deletion.SET_NULL,
                                          related_name='deal_to_ret_set', db_index=True, null=True, blank=True,
                                          verbose_name='Поставщик <Дилерский центр>')
+
+    @property
+    def get_provider(self):
+        if self.factory_provider is not None:
+            return self.factory_provider
+        elif self.distributor_provider is not None:
+            return self.distributor_provider
+        elif self.dealership_provider is not None:
+            return self.dealership_provider
 
     class Meta:
         verbose_name = 'Розничная сеть'
@@ -88,6 +113,17 @@ class IndividualSeller(models.Model):
     retailer_provider = models.ForeignKey(Dealership, on_delete=models.deletion.SET_NULL,
                                             related_name='ret_to_ind_set', db_index=True, null=True, blank=True,
                                             verbose_name='Поставщик <Розничная сеть>')
+
+    @property
+    def get_provider(self):
+        if self.factory_provider is not None:
+            return self.factory_provider
+        elif self.distributor_provider is not None:
+            return self.distributor_provider
+        elif self.dealership_provider is not None:
+            return self.dealership_provider
+        elif self.retailer_provider is not None:
+            return self.retailer_provider
 
     class Meta:
         verbose_name = 'ИП'

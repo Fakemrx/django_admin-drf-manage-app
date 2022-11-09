@@ -51,8 +51,8 @@ class IndividualSellerSerializer(serializers.ModelSerializer):
 
 class NetworkSerializer(serializers.ModelSerializer):
     contacts = ContactsSerializer(read_only=True)
-    # ProductsSerializer(read_only=True)
-    # WorkersSerializer(read_only=True)
+    products = ProductsSerializer(many=True)
+    workers = WorkersSerializer(many=True)
     provider = IndividualSellerSerializer(read_only=True)
 
     class Meta:

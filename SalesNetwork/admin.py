@@ -1,4 +1,8 @@
 from django.contrib import admin
+from django.urls import reverse, reverse_lazy
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+
 from SalesNetwork.models.additional_information import SellersNetwork, Contacts, Country, Address, Products, Workers
 from SalesNetwork.models.network_links import Factory, Distributor, Dealership, Retailer, IndividualSeller
 
@@ -9,32 +13,52 @@ def debt_reset(modeladmin, request, queryset):
 
 
 class IndividualSellerAdmin(admin.ModelAdmin):
-    list_display = ['info', 'factory_provider', 'distributor_provider', 'dealership_provider', 'retailer_provider']
+    def get_provider_url(self, object):
+        return mark_safe(f"<a href='{f'/admin/SalesNetwork/sellersnetwork/{object.get_provider.info.id}'}'>"
+                         f"{object.get_provider}</a>")
+
+    list_display = ['info', 'get_provider_url']
     list_filter = ('info__contacts__address__city',)
+    get_provider_url.short_description = 'Поставщик'
 
     class Meta:
         model = IndividualSeller
 
 
 class RetailerAdmin(admin.ModelAdmin):
-    list_display = ['info', 'factory_provider', 'distributor_provider', 'dealership_provider']
+    def get_provider_url(self, object):
+        return mark_safe(f"<a href='{f'/admin/SalesNetwork/sellersnetwork/{object.get_provider.info.id}'}'>"
+                         f"{object.get_provider}</a>")
+
+    list_display = ['info', 'get_provider_url']
     list_filter = ('info__contacts__address__city',)
+    get_provider_url.short_description = 'Поставщик'
 
     class Meta:
         model = Retailer
 
 
 class DealershipAdmin(admin.ModelAdmin):
-    list_display = ['info', 'factory_provider', 'distributor_provider']
+    def get_provider_url(self, object):
+        return mark_safe(f"<a href='{f'/admin/SalesNetwork/sellersnetwork/{object.get_provider.info.id}'}'>"
+                         f"{object.get_provider}</a>")
+
+    list_display = ['info', 'get_provider_url']
     list_filter = ('info__contacts__address__city',)
+    get_provider_url.short_description = 'Поставщик'
 
     class Meta:
         model = Dealership
 
 
 class DistributorAdmin(admin.ModelAdmin):
-    list_display = ['info', 'factory_provider']
+    def get_provider_url(self, object):
+        return mark_safe(f"<a href='{f'/admin/SalesNetwork/sellersnetwork/{object.get_provider.info.id}'}'>"
+                         f"{object.get_provider}</a>")
+
+    list_display = ['info', 'get_provider_url']
     list_filter = ('info__contacts__address__city',)
+    get_provider_url.short_description = 'Поставщик'
 
     class Meta:
         model = Distributor
