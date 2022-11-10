@@ -56,7 +56,7 @@ class NetworkAvgFilterSerializer(serializers.ModelSerializer):
         fields = ('name', 'contacts', 'debt')
 
 
-class CreateProductSerializer(serializers.ModelSerializer):
+class CreateDeleteProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
         fields = ('name', 'prod_model', 'release_date')
@@ -70,7 +70,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
         return product
 
 
-class CreateFactorySerializer(serializers.ModelSerializer):
+class CreateDeleteFactorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Factory
         fields = ('info',)
@@ -82,7 +82,7 @@ class CreateFactorySerializer(serializers.ModelSerializer):
         return factory
 
 
-class CreateDistributorSerializer(serializers.ModelSerializer):
+class CreateDeleteDistributorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Distributor
         fields = ('info', 'factory_provider')
@@ -95,7 +95,7 @@ class CreateDistributorSerializer(serializers.ModelSerializer):
         return distributor
 
 
-class CreateDealershipSerializer(serializers.ModelSerializer):
+class CreateDeleteDealershipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dealership
         fields = ('info', 'factory_provider', 'distributor_provider')
@@ -109,7 +109,7 @@ class CreateDealershipSerializer(serializers.ModelSerializer):
         return dealership
 
 
-class CreateRetailerSerializer(serializers.ModelSerializer):
+class CreateDeleteRetailerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Retailer
         fields = ('info', 'factory_provider', 'distributor_provider', 'dealership_provider')
@@ -124,7 +124,7 @@ class CreateRetailerSerializer(serializers.ModelSerializer):
         return retailer
 
 
-class CreateIndividualSellerSerializer(serializers.ModelSerializer):
+class CreateDeleteIndividualSellerSerializer(serializers.ModelSerializer):
     class Meta:
         model = IndividualSeller
         fields = ('info', 'factory_provider', 'distributor_provider', 'dealership_provider', 'retailer_provider')

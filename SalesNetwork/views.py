@@ -5,13 +5,13 @@ from django.db.models import Avg
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 
-from SalesNetwork.models.network_links import Factory
+from SalesNetwork.models.network_links import Factory, Distributor, Dealership, Retailer, IndividualSeller
 from SalesNetwork.service import NetworkFilter
 
 from SalesNetwork.models.additional_information import SellersNetwork, Products
-from SalesNetwork.serializers import NetworkSerializer, CreateProductSerializer, CreateIndividualSellerSerializer, \
-    CreateFactorySerializer, CreateDealershipSerializer, CreateDistributorSerializer,\
-    CreateRetailerSerializer, NetworkAvgFilterSerializer
+from SalesNetwork.serializers import NetworkSerializer, CreateDeleteProductSerializer, CreateDeleteIndividualSellerSerializer, \
+    CreateDeleteFactorySerializer, CreateDeleteDealershipSerializer, CreateDeleteDistributorSerializer,\
+    CreateDeleteRetailerSerializer, NetworkAvgFilterSerializer
 
 
 class NetworkAPIView(generics.ListAPIView):
@@ -29,29 +29,54 @@ class NetworkDebtFilterAPIView(generics.ListAPIView):
 
 
 class ProductAPICreate(generics.CreateAPIView):
-    serializer_class = CreateProductSerializer
+    serializer_class = CreateDeleteProductSerializer
 
 
 class ProductAPIDelete(generics.DestroyAPIView):
-    serializer_class = CreateProductSerializer
+    serializer_class = CreateDeleteProductSerializer
     queryset = Products.objects.all()
 
 
 class FactoryAPICreate(generics.CreateAPIView):
-    serializer_class = CreateFactorySerializer
+    serializer_class = CreateDeleteFactorySerializer
+
+
+class FactoryAPIDelete(generics.DestroyAPIView):
+    serializer_class = CreateDeleteFactorySerializer
+    queryset = Factory.objects.all()
 
 
 class DistributorAPICreate(generics.CreateAPIView):
-    serializer_class = CreateDistributorSerializer
+    serializer_class = CreateDeleteDistributorSerializer
+
+
+class DistributorAPIDelete(generics.DestroyAPIView):
+    serializer_class = CreateDeleteDistributorSerializer
+    queryset = Distributor.objects.all()
 
 
 class DealershipAPICreate(generics.CreateAPIView):
-    serializer_class = CreateDealershipSerializer
+    serializer_class = CreateDeleteDealershipSerializer
+
+
+class DealershipAPIDelete(generics.DestroyAPIView):
+    serializer_class = CreateDeleteDealershipSerializer
+    queryset = Dealership.objects.all()
 
 
 class RetailerAPICreate(generics.CreateAPIView):
-    serializer_class = CreateRetailerSerializer
+    serializer_class = CreateDeleteRetailerSerializer
+
+
+class RetailerAPIDelete(generics.DestroyAPIView):
+    serializer_class = CreateDeleteRetailerSerializer
+    queryset = Retailer.objects.all()
 
 
 class IndividualSellerAPICreate(generics.CreateAPIView):
-    serializer_class = CreateIndividualSellerSerializer
+    serializer_class = CreateDeleteIndividualSellerSerializer
+
+
+class IndividualSellerAPIDelete(generics.DestroyAPIView):
+    serializer_class = CreateDeleteIndividualSellerSerializer
+    queryset = IndividualSeller.objects.all()
