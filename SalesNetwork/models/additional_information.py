@@ -66,7 +66,7 @@ class Workers(models.Model):
 
 
 class SellersNetwork(models.Model):
-    name = models.TextField(max_length=50, null=False, blank=False, verbose_name='Название компании', unique=True)
+    name = models.TextField(max_length=50, null=False, blank=False, verbose_name='Название компании')
     contacts = models.ForeignKey(Contacts, on_delete=models.CASCADE,
                                  related_name='info_contacts_set', db_index=True, null=False, blank=False,
                                  verbose_name='Контакты')
