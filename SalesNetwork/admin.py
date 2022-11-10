@@ -15,7 +15,7 @@ def debt_reset(modeladmin, request, queryset):
 class IndividualSellerAdmin(admin.ModelAdmin):
     def get_provider_url(self, object):
         return mark_safe(f"<a href='{f'/admin/SalesNetwork/sellersnetwork/{object.get_provider.info.id}'}'>"
-                         f"{object.get_provider}</a>")
+                         f"{object.get_provider}</a>" if object.get_provider else 'Нет поставщика')
 
     list_display = ['info', 'get_provider_url']
     list_filter = ('info__contacts__address__city',)
@@ -28,7 +28,7 @@ class IndividualSellerAdmin(admin.ModelAdmin):
 class RetailerAdmin(admin.ModelAdmin):
     def get_provider_url(self, object):
         return mark_safe(f"<a href='{f'/admin/SalesNetwork/sellersnetwork/{object.get_provider.info.id}'}'>"
-                         f"{object.get_provider}</a>")
+                         f"{object.get_provider}</a>" if object.get_provider else 'Нет поставщика')
 
     list_display = ['info', 'get_provider_url']
     list_filter = ('info__contacts__address__city',)
@@ -41,7 +41,7 @@ class RetailerAdmin(admin.ModelAdmin):
 class DealershipAdmin(admin.ModelAdmin):
     def get_provider_url(self, object):
         return mark_safe(f"<a href='{f'/admin/SalesNetwork/sellersnetwork/{object.get_provider.info.id}'}'>"
-                         f"{object.get_provider}</a>")
+                         f"{object.get_provider}</a>" if object.get_provider else 'Нет поставщика')
 
     list_display = ['info', 'get_provider_url']
     list_filter = ('info__contacts__address__city',)
@@ -54,7 +54,7 @@ class DealershipAdmin(admin.ModelAdmin):
 class DistributorAdmin(admin.ModelAdmin):
     def get_provider_url(self, object):
         return mark_safe(f"<a href='{f'/admin/SalesNetwork/sellersnetwork/{object.get_provider.info.id}'}'>"
-                         f"{object.get_provider}</a>")
+                         f"{object.get_provider}</a>" if object.get_provider else 'Нет поставщика')
 
     list_display = ['info', 'get_provider_url']
     list_filter = ('info__contacts__address__city',)

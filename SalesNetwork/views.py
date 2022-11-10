@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from SalesNetwork.models.network_links import Factory
 from SalesNetwork.service import NetworkFilter
 
-from SalesNetwork.models.additional_information import SellersNetwork
+from SalesNetwork.models.additional_information import SellersNetwork, Products
 from SalesNetwork.serializers import NetworkSerializer, CreateProductSerializer, CreateIndividualSellerSerializer, \
     CreateFactorySerializer, CreateDealershipSerializer, CreateDistributorSerializer,\
     CreateRetailerSerializer, NetworkAvgFilterSerializer
@@ -30,6 +30,11 @@ class NetworkDebtFilterAPIView(generics.ListAPIView):
 
 class ProductAPICreate(generics.CreateAPIView):
     serializer_class = CreateProductSerializer
+
+
+class ProductAPIDelete(generics.DestroyAPIView):
+    serializer_class = CreateProductSerializer
+    queryset = Products.objects.all()
 
 
 class FactoryAPICreate(generics.CreateAPIView):
