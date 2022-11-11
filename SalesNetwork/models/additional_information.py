@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Country(models.Model):
     name = models.TextField(max_length=50, null=False, blank=False, unique=True, verbose_name='Страна')
@@ -53,18 +55,6 @@ class Products(models.Model):
         return f'{self.name} {self.prod_model}'
 
 
-class Workers(models.Model):
-    name = models.TextField(max_length=100, null=False, blank=False, verbose_name='ФИО работника')
-    is_working_now = models.BooleanField(default=True, null=False, blank=False, verbose_name='Работает сейчас')
-
-    class Meta:
-        verbose_name = 'Работник'
-        verbose_name_plural = 'Работники'
-
-    def __str__(self):
-        return self.name
-
-
 class SellersNetwork(models.Model):
     name = models.TextField(max_length=50, null=False, blank=False, verbose_name='Название компании')
     contacts = models.ForeignKey(Contacts, on_delete=models.CASCADE,
@@ -72,7 +62,7 @@ class SellersNetwork(models.Model):
                                  verbose_name='Контакты')
     products = models.ManyToManyField(Products, related_name='info_products_set', db_index=True,
                                       verbose_name='Продукты')
-    workers = models.ManyToManyField(Workers, related_name='info_workers_set', db_index=True, verbose_name='Работники')
+    workers = models.ManyToManyField(User, related_name='info_workers_set', db_index=True, verbose_name='Работники')
     debt = models.DecimalField(default=0, decimal_places=2, max_digits=10, verbose_name='Долг')
     creation_time = models.DateTimeField(auto_now=True, verbose_name='Дата и время создания')
 

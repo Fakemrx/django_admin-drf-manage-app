@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from SalesNetwork.models.additional_information import SellersNetwork, Address, Contacts, Country, Products, Workers
+from SalesNetwork.models.additional_information import SellersNetwork, Address, Contacts, Country, Products
+from users.models import User
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -33,8 +34,8 @@ class ProductsSerializer(serializers.ModelSerializer):
 
 class WorkersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Workers
-        fields = ('name',)
+        model = User
+        fields = ('worker_fio',)
 
 
 class NetworkSerializer(serializers.ModelSerializer):

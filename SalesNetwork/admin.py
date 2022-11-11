@@ -3,8 +3,9 @@ from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
-from SalesNetwork.models.additional_information import SellersNetwork, Contacts, Country, Address, Products, Workers
+from SalesNetwork.models.additional_information import SellersNetwork, Contacts, Country, Address, Products
 from SalesNetwork.models.network_links import Factory, Distributor, Dealership, Retailer, IndividualSeller
+from users.models import User
 
 
 @admin.action(description='Снять задолженности у выбранных продавцов')
@@ -91,4 +92,4 @@ admin.site.register(Contacts)
 admin.site.register(Country)
 admin.site.register(Address)
 admin.site.register(Products)
-admin.site.register(Workers)
+admin.site.register(User)
